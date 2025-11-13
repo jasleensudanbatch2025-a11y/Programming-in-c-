@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int choice;
+    do {
+        printf("\n--- Menu ---\n");
+        printf("1. For Loop Demo\n");
+        printf("2. Conditional If-Else Demo\n");
+        printf("3. Switch-Case Demo (Calculator)\n");
+        printf("4. Quadratic Equation Solver\n");
+        printf("5. Calendar Demo\n");
+        printf("6. Digit Processing\n");
+        printf("0. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if(choice == 1) {
+            int i;
+            printf("\nFor loop printing 0 to 4:\n");
+            for(i=0;i<5;i++) {
+                printf("%d ", i);
+            }
+            printf("\n");
+        }
+
+        else if(choice == 2) {
+            int n;
+            printf("Enter a number: ");
+            scanf("%d", &n);
+            if(n > 0)
+                printf("Positive\n");
+            else if(n < 0)
+                printf("Negative\n");
+            else
+                printf("Zero\n");
+        }
+
+        else if(choice == 3) {
+            char op;
+            int a, b;
+            printf("Enter operator (+, -, *, /): ");
+            scanf(" %c", &op);
+            printf("Enter two numbers: ");
+            scanf("%d %d", &a, &b);
+            switch(op) {
+                case '+': printf("Result = %d\n", a + b); break;
+                case '-': printf("Result = %d\n", a - b); break;
+                case '*': printf("Result = %d\n", a * b); break;
+                case '/':
+                    if(b != 0)
+                        printf("Result = %d\n", a / b);
+                    else
+                        printf("Divide by zero error\n");
+                    break;
+                default: printf("Invalid operator\n");
+            }
+        }
+
+        else if(choice == 4) {
+            float a, b, c, d, r1, r2;
+            printf("Enter a, b, c for ax^2+bx+c=0: ");
+            scanf("%f%f%f", &a, &b, &c);
+            d = b*b - 4*a*c;
+            if(d > 0) {
+                r1 = (-b + sqrt(d)) / (2*a);
+                r2 = (-b - sqrt(d)) / (2*a);
+                printf("Roots: %f %f\n", r1, r2);
+            } else if(d == 0) {
+                r1 = -b / (2*a);
+                printf("Equal roots: %f\n", r1);
+            } else {
+                printf("Imaginary roots\n");
+            }
+        }
+
+        else if(choice == 5) {
+            int days_in_month[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+            int year, i;
+            char *names[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+            printf("Enter year: ");
+            scanf("%d", &year);
+            if((year%4==0 && year%100!=0)||(year%400==0)){
+                days_in_month[1]=29;
+            }
+            for(i=0;i<12;i++)
+                printf("%s: %d days\n", names[i], days_in_month[i]);
+        }
+
+        else if(choice == 6) {
+            int num;
+            printf("Enter number: ");
+            scanf("%d", &num);
+            printf("Digits (reverse order):\n");
+            while(num > 0){
+                printf("%d\n", num % 10);
+                num = num / 10;
+            }
+        }
+
+        else if(choice == 0) {
+            printf("Goodbye!\n");
+        }
+
+        else {
+            printf("Invalid choice!\n");
+        }
+
+    } while(choice != 0);
+
+    return 0;
+}
