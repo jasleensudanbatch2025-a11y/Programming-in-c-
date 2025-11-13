@@ -1,0 +1,79 @@
+#include <stdio.h>
+struct Distance {
+    int feet;
+    float inches;
+};
+struct Student {
+    char name[50];
+    int numSubjects;
+    float marks[10];
+};
+struct Distance addDistance(struct Distance d1, struct Distance d2) {
+    struct Distance result;
+    result.feet = d1.feet + d2.feet;
+    result.inches = d1.inches + d2.inches;
+    if (result.inches >= 12.0) {
+        result.feet += (int)(result.inches / 12);
+        result.inches = fmod(result.inches, 12);
+    }
+    return result;
+}
+float calculateCGPA(struct Student s) {
+    float total = 0.0;
+    for (int i = 0; i < s.numSubjects; i++)
+        total += s.marks[i];
+    return (total / s.numSubjects) / 9.5; // CGPA formula (approx)
+}
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("   STRUCTURE-BASED PROGRAMS    \n");
+        printf("1. Add Two Distances\n");
+        printf("2. Calculate CGPA of a Student\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                struct Distance d1, d2, sum;
+                printf("Enter first distance (feet inches): ");
+                scanf("%d %f", &d1.feet, &d1.inches);
+                printf("Enter second distance (feet inches): ");
+                scanf("%d %f", &d2.feet, &d2.inches);
+                sum = addDistance(d1, d2);
+                printf("\nSum of distances = %d'-%.2f\"\n", sum.feet, sum.inches);
+                break;
+            }
+
+            case 2: {
+                struct Student s;
+                printf("Enter student name: ");
+                getchar(); // clear input buffer
+                gets(s.name);
+                printf("Enter number of subjects: ");
+                scanf("%d", &s.numSubjects);
+
+                printf("Enter marks (out of 100) for each subject:\n");
+                for (int i = 0; i < s.numSubjects; i++) {
+                    printf("Subject %d: ", i + 1);
+                    scanf("%f", &s.marks[i]);
+                }
+                float cgpa = calculateCGPA(s);
+                printf("\nStudent Name: %s", s.name);
+                printf("\nCGPA = %.2f\n", cgpa);
+                break;
+            }
+
+            case 3:
+                printf("Exiting program... Goodbye!\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
