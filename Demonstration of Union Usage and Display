@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+union Data {
+    int intVal;
+    float floatVal;
+    char strVal[20];
+};
+
+int main() {
+    union Data data;
+
+    printf(" Demonstration of Union in C=\n");
+    data.intVal = 10;
+    printf("\nAfter assigning integer value:\n");
+    printf("Integer: %d\n", data.intVal);
+    data.floatVal = 25.75;
+    printf("\nAfter assigning float value:\n");
+    printf("Float: %.2f\n", data.floatVal);
+    printf("Integer (corrupted now): %d\n", data.intVal);
+    strcpy(data.strVal, "Hello, Union!");
+    printf("\nAfter assigning string value:\n");
+    printf("String: %s\n", data.strVal);
+    printf("Float (corrupted now): %.2f\n", data.floatVal);
+    printf("\nSize of union 'Data' = %lu bytes\n", sizeof(data));
+
+    return 0;
+}
