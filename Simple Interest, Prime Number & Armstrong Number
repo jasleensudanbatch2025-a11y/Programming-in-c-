@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <math.h>
+float simpleInterest(float p, float r, float t) {
+    return (p * r * t) / 100.0;
+}
+int isPrime(int n) {
+    if (n <= 1)
+        return 0;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
+}
+int isArmstrong(int n) {
+    int num = n, sum = 0, digit, count = 0;
+    int temp = n;
+    while (temp != 0) {
+        count++;
+        temp /= 10;
+    }
+    temp = n;
+    while (temp != 0) {
+        digit = temp % 10;
+        sum += pow(digit, count);
+        temp /= 10;
+    }
+
+    return (sum == num);
+}
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("   SIMPLE INTEREST & NUMBERS   \n");
+        printf("1. Calculate Simple Interest\n");
+        printf("2. Check Prime Number\n");
+        printf("3. Check Armstrong Number\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                float p, r, t;
+                printf("Enter Principal, Rate, and Time: ");
+                scanf("%f %f %f", &p, &r, &t);
+                float si = simpleInterest(p, r, t);
+                printf("Simple Interest = %.2f\n", si);
+                break;
+            }
+
+            case 2: {
+                int n;
+                printf("Enter a number: ");
+                scanf("%d", &n);
+                if (isPrime(n))
+                    printf("%d is a Prime Number.\n", n);
+                else
+                    printf("%d is NOT a Prime Number.\n", n);
+                break;
+            }
+
+            case 3: {
+                int n;
+                printf("Enter a number: ");
+                scanf("%d", &n);
+
+                if (isArmstrong(n))
+                    printf("%d is an Armstrong Number.\n", n);
+                else
+                    printf("%d is NOT an Armstrong Number.\n", n);
+                break;
+            }
+
+            case 4:
+                printf("Exiting program... Goodbye!\n");
+                return 0;
+
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
