@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+#define MAX 100
+#define PI 3.14159
+
+void circleCalculations(float *radius, float *area, float *circumference) {
+    *area = PI * (*radius) * (*radius);
+    *circumference = 2 * PI * (*radius);
+}
+void sortStringsByLength(char *str[], int n) {
+    char *temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strlen(str[i]) > strlen(str[j])) {
+                temp = str[i];
+                str[i] = str[j];
+                str[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("POINTERS IN C – DEMONSTRATION\n");
+        printf("1. Calculate Area and Circumference of Circle\n");
+        printf("2. Sort Strings by Length\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                float radius, area, circumference;
+                printf("\nEnter radius of the circle: ");
+                scanf("%f", &radius);
+                circleCalculations(&radius, &area, &circumference);
+                printf("Area of Circle = %.2f\n", area);
+                printf("Circumference of Circle = %.2f\n", circumference);
+                break;
+            }
+
+            case 2: {
+                int n;
+                printf("\nEnter number of strings: ");
+                scanf("%d", &n);
+                getchar();
+                char strings[MAX][MAX];
+                char *ptrs[MAX];
+                printf("Enter the strings:\n");
+                for (int i = 0; i < n; i++) {
+                    printf("String %d: ", i + 1);
+                    gets(strings[i]);
+                    ptrs[i] = strings[i]; 
+                }
+                sortStringsByLength(ptrs, n);
+                printf("\nStrings sorted by length:\n");
+                for (int i = 0; i < n; i++)
+                    printf("%s\n", ptrs[i]);
+                break;
+            }
+
+            case 3:
+                printf("\nExiting program... Goodbye!\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
+
