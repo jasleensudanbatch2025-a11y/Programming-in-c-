@@ -1,0 +1,103 @@
+#include <stdio.h>
+int stringLength(char str[]) {
+    int i = 0;
+    while (str[i] != '\0')
+        i++;
+    return i;
+}
+void stringCopy(char dest[], char src[]) {
+    int i = 0;
+    while (src[i] != '\0') {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
+}
+void stringConcat(char str1[], char str2[]) {
+    int i = 0, j = 0;
+
+    // Move i to the end of str1
+    while (str1[i] != '\0')
+        i++;
+    while (str2[j] != '\0') {
+        str1[i] = str2[j];
+        i++;
+        j++;
+    }
+    str1[i] = '\0';
+}
+int stringCompare(char str1[], char str2[]) {
+    int i = 0;
+    while (str1[i] != '\0' && str2[i] != '\0') {
+        if (str1[i] != str2[i])
+            return (str1[i] - str2[i]);
+        i++;
+    }
+    return (str1[i] - str2[i]);
+}
+
+int main() {
+    char str1[100], str2[100], str3[200];
+    int choice;
+
+    while (1) {
+        printf("   STRING OPERATIONS (USER-DEFINED)\n");
+        printf("1. Find Length of a String\n");
+        printf("2. Copy a String\n");
+        printf("3. Concatenate Two Strings\n");
+        printf("4. Compare Two Strings\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar();
+
+        switch (choice) {
+            case 1: {
+                printf("Enter a string: ");
+                gets(str1);
+                printf("Length of the string = %d\n", stringLength(str1));
+                break;
+            }
+
+            case 2: {
+                printf("Enter a string to copy: ");
+                gets(str1);
+                stringCopy(str2, str1);
+                printf("Copied String: %s\n", str2);
+                break;
+            }
+
+            case 3: {
+                printf("Enter first string: ");
+                gets(str1);
+                printf("Enter second string: ");
+                gets(str2);
+                stringCopy(str3, str1);  // copy str1 into str3
+                stringConcat(str3, str2);
+                printf("Concatenated String: %s\n", str3);
+                break;
+            }
+
+            case 4: {
+                printf("Enter first string: ");
+                gets(str1);
+                printf("Enter second string: ");
+                gets(str2);
+                int cmp = stringCompare(str1, str2);
+                if (cmp == 0)
+                    printf("Strings are Equal.\n");
+                else if (cmp > 0)
+                    printf("First string is Greater (lexicographically).\n");
+                else
+                    printf("First string is Smaller (lexicographically).\n");
+                break;
+            }
+
+            case 5:
+                printf("Exiting program... Goodbye!\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+}
